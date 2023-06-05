@@ -1,0 +1,23 @@
+import React from 'react'
+
+
+const SpotifyLogin = () => {
+
+  const AUTH_URL = "https://accounts.spotify.com/authorize?client_id=31a74c4a34d245d8bcc83e7bed21b650&response_type=code&redirect_uri=http://localhost:5173/callback&scope=streaming%20user-read-email%20user-read-private%20user-library-read%20user-library-modify%20user-read-playback-state%20user-modify-playback-state"
+
+  return (
+    <div>
+      <div>
+        <h1>Connect Your Spotify Account</h1>
+        <div>
+          {
+            // Going to Spotify
+          }
+          <a href={AUTH_URL}> Connect </a>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export default SpotifyLogin
