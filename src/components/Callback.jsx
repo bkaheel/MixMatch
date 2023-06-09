@@ -22,7 +22,7 @@ const Callback = () => {
 
   const code = new URLSearchParams(window.location.search).get('code');
   const accessToken = useAuth(code);
-  localStorage.setItem("TokenCheck", accessToken);
+  sessionStorage.setItem("MyAccessToken", accessToken);
 
 
   if(accessToken) {
@@ -36,7 +36,7 @@ const Callback = () => {
           expiresIn: localStorage.getItem("Expiring")
         });
         setLoading(false);
-        navigate('/app');
+        navigate('/app/settings');
       } catch (error) {
         console.log(error);
       }

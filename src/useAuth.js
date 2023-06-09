@@ -17,6 +17,8 @@ export const useAuth = (code) => {
         setAccessToken(res.data.accessToken)
         setRefreshToken(res.data.refreshToken)
         setExpiresIn(res.data.expiresIn)
+        console.log("stuff");
+        console.log(res);
       })
       .catch((err) => {
         console.log(err)

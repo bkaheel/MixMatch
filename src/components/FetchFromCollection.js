@@ -1,32 +1,36 @@
-import {
-    collection,
-    query,
-    where,
-    getDocs
-  } from "firebase/firestore";
+import { collection, query, where, getDocs } from "firebase/firestore";
 import { db } from "../firebase";
-import React, {useState} from 'react';
-  
-export const FetchFromCollection = (uid) => {
-  const [user, setUser] = useState(null);
+import React, { useState, useEffect } from 'react';
 
-  const handleSearch = async () => {
-    const q = query(
-      collection(db, "accounts"),
-      where("uid", "===", uid)
-    );
+export const FetchFromCollection = ( code ) => {
+  const [user, setUser] = useState();
 
-    try {
-      const querySnapshot = await getDocs(q);
-      querySnapshot.forEach((doc) => {
-        setUser(doc.data());
-      });
-    } catch (err) {
-      console.log(err.message);
+  useEffect(() => {
+    const handleSearch = async () => {
+      const q = query(
+        collection(db, "accounts"),
+        where("uid", "==", code.uid)
+      );
+
+      try {
+        const querySnapshot = await getDocs(q);
+        querySnapshot.forEach((doc) => {
+          setUser(doc.data());
+        });
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    if(code) {
+         handleSearch(); 
     }
-  };
 
-  handleSearch();
-  return user;
-}
-  
+
+  }, [code]);
+
+  if (user) {
+    return user;
+  }
+
+};
