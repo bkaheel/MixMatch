@@ -42,7 +42,7 @@ const Register = () => {
         }
 
         // After creating the new account, we go to the Spotify login page
-        navigate("/spotifylogin");
+        navigate("/app/settings");
 
     }
 

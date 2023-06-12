@@ -12,7 +12,8 @@ const Navigation = () => {
         <a onClick={() => navigate("/app")}> Feed </a> 
         <a onClick={() => navigate("/app/friends")}> Friends </a> 
         <a onClick={() => navigate("/app/profile")}> Profile </a> 
-        <a onClick={() => navigate("/app/settings")}> Settings </a> 
+        <a onClick={() => navigate("/app/settings")}> Settings </a>
+        <a onClick={() => navigate("/app/match")}> Match </a>  
 
      </div>
   )

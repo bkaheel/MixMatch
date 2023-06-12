@@ -16,23 +16,26 @@ const LandingPage = () => {
 
 
   return (
-    <div>
-        <div>
-            <h1>Welcome to MixMatch </h1>
-        </div>
-
-        <div>
+    <div className='bg-slate-500 h-screen flex place-content-center'>
+        <div className='mt-10 flex flex-col text-center gap-12'>
+            <h1 className='mb-10 text-6xl font-bold text-yellow-600 '>Welcome to MixMatch</h1>
+            <div>
             <ul>
                 <li>
-                    <p> New to MixMatch? </p>
-                    <button onClick={handleRegister}> Register </button>
+                    <p className='mb-4 text-3xl font-thin'> New to MixMatch? </p>
+                    <button className='mb-8 outline outline-2 w-[100px] h-[30px] rounded-full hover:bg-yellow-600 hover:-translate-y-2' onClick={handleRegister}> Register </button>
                 </li>
                 <li>
-                    <p> Already have an account? </p>
-                    <button onClick={handleLogin}> Login </button>
+                    <p className='mb-4 text-3xl font-thin'> Already have an account? </p>
+                    <button className='mb-8 outline outline-2 w-[100px] h-[30px] rounded-full hover:bg-yellow-600 hover:-translate-y-2' onClick={handleLogin}> Login </button>
                 </li>
             </ul>
         </div>
+
+        </div>
+    
+
+
     </div>
   )
 }

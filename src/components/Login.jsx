@@ -27,7 +27,7 @@ const Login = () => {
 
 
   return (
-    <div>
+    <div className="bg-slate-500 flex flex-col h-screen">
         <div>
             <h1> Login </h1>
         </div>
@@ -38,6 +38,7 @@ const Login = () => {
                 <button type='submit'> Submit </button>
             </form>
         </div>
+        <p>Don't have an account? <span> <a className="text-yellow-500 font-bold hover:text-blue-600" href="/register">Create an Account </a> </span></p>
     </div>
   )
 }

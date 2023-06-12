@@ -11,6 +11,7 @@ import Profile from './components/app/Profile';
 import Settings from './components/Settings';
 import Friends from './components/Friends';
 import Feed from './components/app/Feed';
+import Match from './components/Match';
 
 function App() {
   // To prevent problems later on, users that are logged in should not be able to access the Login or register pages
@@ -46,12 +47,13 @@ function App() {
         <Route path="/">
           <Route index element={<LandingPage />} />
           <Route path="login" element={<AltProtectedRoute><Login /></AltProtectedRoute>} />
-          <Route path="register" element={<AltProtectedRoute><Register /></AltProtectedRoute>} />
+          <Route path="register" element={<Register />} />
           <Route path="app" element={<ProtectedRoute><MixMatch /></ProtectedRoute>} >
             <Route index element={<ProtectedRoute><Feed /></ProtectedRoute>} />  
             <Route path="friends" element={<ProtectedRoute><Friends /></ProtectedRoute>} />  
             <Route path="profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />  
             <Route path="settings" element={<ProtectedRoute><Settings /></ProtectedRoute>} />
+            <Route path="match" element={<ProtectedRoute><Match /></ProtectedRoute>} />
           </Route>
           <Route path="callback" element={<Callback />} />
         </Route>

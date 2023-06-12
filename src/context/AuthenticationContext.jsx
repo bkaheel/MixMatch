@@ -7,7 +7,8 @@ import {
   where,
   getDocs,
   updateDoc,
-  doc
+  doc,
+  getDoc
 } from "firebase/firestore";
 import { db } from "../firebase";
 import axios from "axios";
@@ -94,11 +95,60 @@ export const AuthenticationContextProvider = ({ children }) => {
           spotifyToken: accessToken,
         });
         console.log("Updated Firestore with Access Token:", accessToken);
+        
+        // Refresh tokens for friends
+        if (user.friends && user.friends.length > 0) {
+          user.friends.forEach(async (friendUid) => {
+            const friendDoc = doc(db, "accounts", friendUid);
+            const friendDocSnapshot = await getDoc(friendDoc);
+            if (friendDocSnapshot.exists()) {
+              const friendData = friendDocSnapshot.data();
+              if (friendData.refreshToken) {
+                // Refresh friend's token
+                const refreshToken = friendData.refreshToken;
+                let accessToken = "";
+
+                // Make the necessary API request to refresh the token for the friend
+                axios
+                .post("http://localhost:5174/refresh", {
+                  refreshToken: refreshToken,
+                })
+                .then((res) => {
+                  accessToken = res.data.accessToken;
+                })
+                .catch((err) => {
+                  console.log(err);
+                  console.log(accessToken);
+                });
+
+
+
+
+
+                // Update the friend's token in Firestore
+
+                await updateDoc(doc(db, "accounts", friendData.uid), {
+                  spotifyToken: accessToken,
+                });
+                // Handle errors appropriately
+              }
+            }
+          });
+        }
+        setIsInitialLoad(true);
       };
 
-      updateFirestore(); // Set up time interval to run this again in an hour
+      updateFirestore();
+      const intervalId = setInterval(updateFirestore, 60 * 60 * 1000); // 1 hour in milliseconds
+      return () => clearInterval(intervalId);
     }
+
+
+
   }, [accessToken, user, isInitialLoad]);
+
+
+ 
 
   return (
     <AuthenticationContext.Provider value={{ currentUser }}>

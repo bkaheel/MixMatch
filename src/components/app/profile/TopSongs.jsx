@@ -8,12 +8,15 @@ const TopSongs = () => {
   const [topSongs, setTopSongs] = useState([]);
 
   useEffect(() => {
+    console.log(accessToken);
     spotifyApi.setAccessToken(accessToken);
 
     spotifyApi
       .getMyTopTracks({ limit: 10 }) // Specify the limit to get only the top 10 tracks
       .then(function (data) {
+        console.log(data);
         let topTracks = data.items;
+        console.log(topTracks);
         setTopSongs(topTracks);
       })
       .catch(function (err) {
