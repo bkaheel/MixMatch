@@ -67,9 +67,7 @@ const Friends = () => {
 
     if (username !== "") {
       handleSearch();
-    } else {
-      setUser(null); // Reset user when the input is empty
-    }
+    } 
   }, [username]);
 
   const handleChange = (e) => {
@@ -85,7 +83,7 @@ const Friends = () => {
       });
 
       await updateDoc(doc(db, "accounts", user.uid), {
-        friends: arrayUnion(currentUser),
+        friends: arrayUnion(currUser),
       });
     } catch (err) {
       console.log(err);

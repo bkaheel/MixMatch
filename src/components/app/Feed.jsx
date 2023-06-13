@@ -64,13 +64,21 @@ const Feed = () => {
         try {
           const querySnapshot = await getDocs(q);
           const friends = [];
+          const hold = user.friends;
+          const arr = hold.map((friend) => friend.uid);
+          console.log("arr");
+          console.log(arr);
+
     
           querySnapshot.forEach((doc) => {
             const friend = doc.data();
-            if (friend.spotifyToken) {
+            if (arr.includes(friend.uid)) {
               friends.push(friend);
             }
           });
+
+          console.log("friends");
+          console.log(friends);
     
           const spotifyApi = new SpotifyWebApi();
     

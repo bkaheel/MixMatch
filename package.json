@@ -20,7 +20,8 @@
     "react-dom": "^18.2.0",
     "react-firebase-hooks": "^5.1.1",
     "react-router-dom": "^6.11.2",
-    "spotify-web-api-js": "^1.5.2"
+    "spotify-web-api-js": "^1.5.2",
+    "spotify-web-api-node": "^5.0.2"
   },
   "devDependencies": {
     "@types/react": "^18.0.37",
