@@ -27,21 +27,22 @@ const Feed = () => {
     if (currentUser) {
       handleSearch();
     }
- }, [currentUser]);
+  }, [currentUser]);
 
   useEffect(() => {
-     // Fetch user tracks
-     const fetchUserTracks = async () => {
+    // Fetch user tracks
+    const fetchUserTracks = async () => {
       if (user && user.spotifyToken) {
         const spotifyApi = new SpotifyWebApi();
         spotifyApi.setAccessToken(user.spotifyToken);
-    
+
         try {
           const userRecentlyPlayed = await spotifyApi.getMyRecentlyPlayedTracks({ limit: 10 });
           const tracksWithUser = userRecentlyPlayed.items.map((track) => ({
             ...track,
             userUid: currentUser.uid,
             userDisplayName: user.displayName,
+            artwork: track.track.album.images[0].url,
           }));
           setUserTracks(tracksWithUser);
         } catch (err) {
@@ -60,16 +61,13 @@ const Feed = () => {
     const fetchFriendsTracks = async () => {
       if (user && user.spotifyToken) {
         const q = query(collection(db, 'accounts'), where('uid', '!=', user.uid));
-    
+
         try {
           const querySnapshot = await getDocs(q);
           const friends = [];
           const hold = user.friends;
           const arr = hold.map((friend) => friend.uid);
-          console.log("arr");
-          console.log(arr);
 
-    
           querySnapshot.forEach((doc) => {
             const friend = doc.data();
             if (arr.includes(friend.uid)) {
@@ -77,11 +75,8 @@ const Feed = () => {
             }
           });
 
-          console.log("friends");
-          console.log(friends);
-    
           const spotifyApi = new SpotifyWebApi();
-    
+
           const fetchFriendRecentlyPlayedTracks = async (friend) => {
             spotifyApi.setAccessToken(friend.spotifyToken);
             const friendRecentlyPlayed = await spotifyApi.getMyRecentlyPlayedTracks({ limit: 10 });
@@ -89,13 +84,14 @@ const Feed = () => {
               ...track,
               userUid: friend.uid,
               userDisplayName: friend.displayName,
+              artwork: track.track.album.images[0].url,
             }));
             return {
               friendUid: friend.uid,
               tracks: tracksWithUser,
             };
           };
-    
+
           const friendTracksPromises = friends.map((friend) => fetchFriendRecentlyPlayedTracks(friend));
           const friendTracksResults = await Promise.all(friendTracksPromises);
           setFriendsTracks(friendTracksResults);
@@ -120,7 +116,7 @@ const Feed = () => {
     const listenedAt = new Date(timestamp);
     const timeDifference = now - listenedAt;
     const minutes = Math.floor(timeDifference / 1000 / 60);
-    
+
     if (minutes < 1) {
       return 'Just now';
     } else if (minutes === 1) {
@@ -132,7 +128,6 @@ const Feed = () => {
       return `${hours} ${hours === 1 ? 'hour' : 'hours'} ago`;
     }
   };
-  
 
   return (
     <div className='gap-8'>
@@ -141,15 +136,13 @@ const Feed = () => {
         {sortedTracks.map((track) => (
           <li key={track.played_at}>
             <div>
+              {track.artwork && (
+                <img className='w-150px h-[150px]' src={track.artwork} alt='Album Artwork' />
+              )}
               <span>{track.track.name}</span> - <span>{track.track.artists[0].name}</span>
             </div>
-            <div>
-            Listened by: {track.userUid === currentUser.uid ? 'You' : track.userDisplayName}
-
-
-            </div>
+            <div>Listened by: {track.userUid === currentUser.uid ? 'You' : track.userDisplayName}</div>
             <div>{getTimeDifference(track.played_at)}</div>
-
           </li>
         ))}
       </ul>

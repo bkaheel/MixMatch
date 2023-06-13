@@ -114,22 +114,27 @@ const Match = () => {
 
       console.log(recommendations.tracks);
       const tracs = recommendations.tracks;
-      const trackNames = tracs.map((track) => track.name);
+      const trackInfo = tracs.map((track) => ({
+        name: track.name,
+        artwork: track.album.images[0].url, // Assuming the first image in the array represents the artwork
+      }));
 
       if (matchDocSnapshot.exists()) {
         await updateDoc(matchDocRef, {
-          songs: trackNames,
+          songs: trackInfo,
         });
       } else {
         await setDoc(matchDocRef, {
           // Create a new match document
-          songs: trackNames,
+          songs: trackInfo,
         });
       }
 
+      setTracks(trackInfo);
+
       setMatchSongs((prevMatchSongs) => ({
         ...prevMatchSongs,
-        [friend.uid]: trackNames,
+        [friend.uid]: trackInfo,
       }));
     } catch (err) {
       console.log(err);
@@ -150,7 +155,14 @@ const Match = () => {
               {matchSongs[friend.uid] && (
                 <ul>
                   {matchSongs[friend.uid].map((song, songIndex) => (
-                    <li key={songIndex}>{song}</li>
+                    <li key={songIndex}>
+                      <div className=''>
+                      {song.artwork && (
+                        <img className='w-150px h-[150px]' src={song.artwork} alt="Album Artwork" />
+                      )}
+                        <span>{song.name}</span>
+                      </div>
+                    </li>
                   ))}
                 </ul>
               )}
