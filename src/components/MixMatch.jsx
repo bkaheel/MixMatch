@@ -12,11 +12,11 @@ const MixMatch = () => {
 
 
   return (
-    <div>
-      <div>
+    <div className='flex'>
+      <div className=''>
         <Navigation />
       </div>
-      <div>
+      <div className='mt-5'>
         <Outlet />
       </div>
     </div>

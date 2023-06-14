@@ -3,6 +3,7 @@ import { AuthenticationContext } from '../context/AuthenticationContext';
 import { collection, query, where, getDocs, setDoc, updateDoc, doc, getDoc } from 'firebase/firestore';
 import { db } from '../Firebase';
 import SpotifyWebApi from 'spotify-web-api-js';
+import MatchView from './MatchView';
 
 const Match = () => {
   const [friends, setFriends] = useState([]);
@@ -141,35 +142,44 @@ const Match = () => {
     }
   };
 
+  const [isMatchViewOpen, setIsMatchViewOpen] = useState(false);
+  const [selectedMatches, setSelectedMatches] = useState([]);
+
+  const openMatchView = (matches) => {
+    setSelectedMatches(matches);
+    setIsMatchViewOpen(true);
+  };
+
+  const closeMatchView = () => {
+    setIsMatchViewOpen(false);
+  };
+
   return (
     <div>
-      <h1>Match</h1>
-      <h3>Choose a friend to match with and get recommendations based on your combined music taste</h3>
-      <div>
-        <h3>Select a friend</h3>
-        <ul>
+      <div className='bg-slate-200 rounded-lg w-[500px] h-screen'>
+        <h3 className='font-thin pb-10'>Your Friends</h3>
+        <ul className=''>
           {friends.map((friend, index) => (
-            <li key={index}>
+            <li className='outline outline-5 rounded-lg mb-5' key={index}>
               <span>{friend.displayName}</span>
-              <button onClick={() => createMatch(friend)}>+</button>
+
+              <h1>@{friend.userName}</h1>
+              <button onClick={() => createMatch(friend)}><span className='text-sm text-slate-600 underline'>Get New Matches</span></button>
               {matchSongs[friend.uid] && (
                 <ul>
-                  {matchSongs[friend.uid].map((song, songIndex) => (
-                    <li key={songIndex}>
-                      <div className=''>
-                      {song.artwork && (
-                        <img className='w-150px h-[150px]' src={song.artwork} alt="Album Artwork" />
-                      )}
-                        <span>{song.name}</span>
-                      </div>
-                    </li>
-                  ))}
+                  <li>
+                    <button className='mb-2 ml-2 mt-2 px-2 outline outline-2 w-[auto] h-[30px] text-center rounded-full hover:bg-yellow-600 hover:-translate-y-2' onClick={() => openMatchView(matchSongs[friend.uid])}>View Song Recs</button>
+                  </li>
                 </ul>
               )}
             </li>
           ))}
         </ul>
       </div>
+      <div className='p-5'>
+          {isMatchViewOpen && <MatchView matches={selectedMatches} onClose={closeMatchView} />}
+      </div>
+
     </div>
   );
 };

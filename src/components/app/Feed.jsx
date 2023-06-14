@@ -43,6 +43,7 @@ const Feed = () => {
             userUid: currentUser.uid,
             userDisplayName: user.displayName,
             artwork: track.track.album.images[0].url,
+
           }));
           setUserTracks(tracksWithUser);
         } catch (err) {
@@ -131,7 +132,7 @@ const Feed = () => {
 
   return (
     <div className='gap-8'>
-      <h1>Feed</h1>
+      <h1 className='font-thin'> See What Your Friends Are Listening To</h1>
       <ul>
         {sortedTracks.map((track) => (
           <li key={track.played_at}>
