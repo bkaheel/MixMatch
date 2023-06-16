@@ -85,24 +85,33 @@ const Match = () => {
       // Create user matches
       const matchDocRef = doc(db, 'matches', username, 'friends', friend.uid);
       const matchDocSnapshot = await getDoc(matchDocRef);
+      const spotifyUser = new SpotifyWebApi();
+      spotifyUser.setAccessToken(user.spotifyToken);
+      const spotifyFriend = new SpotifyWebApi();
+      spotifyFriend.setAccessToken(friend.spotifyToken);
 
       // Get songs from match
+          console.log(friend.spotifyToken);
+      console.log(user.spotifyToken);
       const friendAccessToken = friend.spotifyToken;
       const userAccessToken = user.spotifyToken;
 
+
       const getFriendTracks = async () => {
-        await spotifyApi.setAccessToken(friendAccessToken);
-        const friendTracks = await spotifyApi.getMyRecentlyPlayedTracks({ limit: 2 });
+        await spotifyFriend.setAccessToken(friendAccessToken);
+        const friendTracks = await spotifyFriend.getMyRecentlyPlayedTracks({ limit: 2 });
+        console.log(friendTracks);
         return friendTracks.items.map((track) => track.track.id);
       };
 
       const getUserTracks = async () => {
-        await spotifyApi.setAccessToken(userAccessToken);
-        const userTracks = await spotifyApi.getMyRecentlyPlayedTracks({ limit: 2 });
+        await spotifyUser.setAccessToken(userAccessToken);
+        const userTracks = await spotifyUser.getMyRecentlyPlayedTracks({ limit: 2 });
         return userTracks.items.map((track) => track.track.id);
       };
 
       const [friendTrackIDs, userTrackIDs] = await Promise.all([getFriendTracks(), getUserTracks()]);
+
 
       const combinedTrackIDs = [...friendTrackIDs, ...userTrackIDs];
 

@@ -34,17 +34,19 @@ const UserInfo = () => {
     }
   }, [username]);
 
-  return (
-    <div>
-      {user ?
-      <div>     
-         <h1>{user.displayName}</h1> 
-         <h3>@{user.userName}</h3>
 
+  return (
+      <div className='pb-10 pt-5'>
+        {user ?
+        <div className='pl-10'> 
+
+            <h1 className='text-4xl font-bold text-yellow-600'>{user.displayName}</h1>
+           <h3 className='text-xl'>@{user.userName}</h3>
+  
+        </div>
+        : <h1>Loading...</h1>}
       </div>
-      : <h1>Loading...</h1>}
-    </div>
-  );
-};
+    );
+        }
 
 export default UserInfo;

@@ -5,7 +5,7 @@ import TopSongs from './profile/TopSongs'
 const Profile = () => {
 
   return (
-    <div>
+    <div className=''>
         <UserInfo />
         <TopSongs />
      </div>
