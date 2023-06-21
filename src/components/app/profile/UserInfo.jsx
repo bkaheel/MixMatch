@@ -1,8 +1,8 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { AuthenticationContext } from '../../../context/AuthenticationContext';
-import { FetchFromCollection } from '../../FetchFromCollection';
 import { collection, query, where, getDocs } from "firebase/firestore";
 import { db } from "../../../Firebase";
+import profile from '../../../assets/images/profile.png'
 
 const UserInfo = () => {
   const { currentUser } = useContext(AuthenticationContext);
@@ -36,13 +36,19 @@ const UserInfo = () => {
 
 
   return (
-      <div className='pb-10 pt-5'>
+      <div className=''>
         {user ?
-        <div className='pl-10'> 
+        <div className='pl-10 flex flex-row gap-20 items-center'> 
+          <div className='w-[180px] h-[180px] overflow-hidden rounded-full border-4 border-textYellow'>
+            <img src={user.photoURL || profile} alt='Profile' /> 
+            <input className='hidden' type="file" id="file" />
 
-            <h1 className='text-4xl font-bold text-yellow-600'>{user.displayName}</h1>
-           <h3 className='text-xl'>@{user.userName}</h3>
-  
+          </div>
+          <div>
+            <h1 className='text-6xl font-bold text-textYellow'>{user.displayName}</h1>
+            <h3 className='text-2xl text-textLight'>@{user.userName}</h3>
+          </div>
+
         </div>
         : <h1>Loading...</h1>}
       </div>

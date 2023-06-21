@@ -5,9 +5,11 @@ import TopSongs from './profile/TopSongs'
 const Profile = () => {
 
   return (
-    <div className=''>
+    <div className='px-5 py-10 flex flex-col gap-10'>
         <UserInfo />
-        <TopSongs />
+        <div className='mt-10'>
+          <TopSongs />
+        </div>
      </div>
   )
 }

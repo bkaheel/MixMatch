@@ -5,7 +5,6 @@ import { collection, query, where, getDocs, setDoc, updateDoc, doc, getDoc } fro
 import { db } from '../../../Firebase';
 
 const TopSongs = () => {
-  const accessToken = sessionStorage.getItem("MyAccessToken");
   const spotifyApi = new SpotifyWebApi();
 
   const [topSongs, setTopSongs] = useState([]);
@@ -68,35 +67,35 @@ const TopSongs = () => {
   
 
   return (
-    <div className="flex flex-row gap-12">
-        <div className="pl-10  items-left">
-          <h2 className="text-yellow-600 font-thin">Your Most Listened to Tracks</h2>
-          <div className="">
+    <div className="flex flex-row gap-12 justify-around">
+        <div className=" ">
+          <h1 className="text-center text-2xl font-bold mt-5 text-textYellow italic">Your Top Tracks</h1>
+          <div className="mt-10 mb-10 ">
     
             {topSongs.map((track) => ( 
-              <div key={track.id} className="mt-4 rounded-xl outline outline-yellow-600 outline-5 w-[450px] ">
-                <div className="flex flex-row ml-5 py-2">
-                  <img className="w-[100px] h-[100px] border-4 border-yellow-600 rounded-full" src={track.album.images[0].url} alt={track.name} />
+              <div key={track.id} className="mb-5 bg-background rounded-full py-3 pr-5 hover:-translate-y-3">
+                <div className="flex flex-row ml-5 ">
+                  <img className="w-[100px] h-[100px] border-4 border-textDark rounded-full" src={track.album.images[0].url} alt={track.name} />
                   <span className="ml-5 mr-5">
-                    <p className=""><span className="font-bold">{track.name}</span> </p>
-                    <span className="">{track.artists[0].name}</span>
+                    <p className=""><span className="font-bold text-textDark">{track.name}</span> </p>
+                    <span className="text-textLight">{track.artists[0].name}</span>
                   </span>
                 </div>
               </div>
             ))}
           </div>
         </div>
-        <div className="flex-row">
-          <h2 className="font-thin text-yellow-600 text-center">Your Favorite Artists </h2>
 
-                <div className="grid grid-cols-3">
-    
+
+        <div className="">
+          <h1 className="text-center text-2xl font-bold mt-5 text-textYellow italic">Top Artists</h1>
+                <div className="grid grid-cols-3 mt-10 mb-10 gap-5">
             {topArtists.map((artist) => ( 
-              <div key={artist.id} className="">
-                <div className="flex flex-col ml-5 py-2 items-center">
-                  <img className="w-[200px] h-[200px] border-4 border-yellow-600 rounded-full" src={artist.images[0].url} alt={artist.name} />
-                  <span className="ml-5 mr-5">
-                    <p className=""><span className="font-bold">{artist.name}</span> </p>
+              <div key={artist.id} className="bg-background rounded-full px-3 py-5 hover:-translate-y-3">
+                <div className="flex flex-col mb-5 items-center justify-around">
+                  <img className="w-[150px] h-[150px] border-4 border-textDark rounded-full" src={artist.images[0].url} alt={artist.name} />
+                  <span className="">
+                    <p className=""><span className="font-bold text-textDark">{artist.name}</span> </p>
                   </span>
                 </div>
               </div>
