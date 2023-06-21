@@ -12,7 +12,7 @@ const SpotifyLogin = () => {
           {
             // Going to Spotify
           }
-          <a href={AUTH_URL}> Connect </a>
+          <a className='bg-textYellow py-3 px-8 rounded-full text-textDark hover:translate-y-4' href={AUTH_URL}> Connect to Spotify </a>
         </div>
       </div>
     </div>

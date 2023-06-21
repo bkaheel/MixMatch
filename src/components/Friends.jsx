@@ -114,7 +114,7 @@ const Friends = () => {
                       <span className="text-textLight">@{friend?.userName}</span>
                     </div>
                     <button
-                      className="text-white bg-blue-500 px-4 py-2 rounded-full"
+                      className="ml-12 text-white bg-textDark px-4 py-2 rounded-full"
                       onClick={() => setSelectedFriend(friend)}
                     >
                       Show Profile

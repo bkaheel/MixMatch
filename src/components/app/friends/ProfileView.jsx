@@ -6,7 +6,7 @@ const ProfileView = ({ user }) => {
 
 
   return (
-    <div className="flex flex-col items-center justify-center overflow-y-auto h-screen bg-black bg-opacity-50">
+    <div className="flex flex-col items-center justify-center overflow-y-auto h-screen bg-black bg-opacity-50 w-full">
       <div className="flex flex-row gap-2 items-center max-h-screen">
         <div className="w-[80px] h-[80px] overflow-hidden rounded-full border-4 border-textYellow">
           <img src={user.photoURL || profile} alt="Profile" />
