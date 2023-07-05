@@ -39,7 +39,7 @@ const Register = () => {
         expiresIn: null,
       });
 
-      navigate('/app/settings');
+      navigate('/spotifyregister');
     } catch (err) {
       console.log(err.message);
     }

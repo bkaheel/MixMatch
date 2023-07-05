@@ -36,7 +36,7 @@ const Callback = () => {
           expiresIn: localStorage.getItem("Expiring")
         });
         setLoading(false);
-        navigate('/app/settings');
+        navigate('/app');
       } catch (error) {
         console.log(error);
       }

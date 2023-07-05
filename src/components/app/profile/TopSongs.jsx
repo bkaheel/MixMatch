@@ -11,6 +11,7 @@ const TopSongs = () => {
   const [topArtists, setTopArtists] = useState([]);
   const [user, setUser] = useState({});
   const { currentUser } = useContext(AuthenticationContext);
+  const [token, setToken] = useState(null);
 
 
   const handleSearch = async () => {
@@ -20,6 +21,7 @@ const TopSongs = () => {
       const querySnapshot = await getDocs(q);
       querySnapshot.forEach((doc) => {
         setUser(doc.data());
+        setToken(doc.data().spotifyToken);
       });
     } catch (err) {
       console.log(err);
@@ -67,43 +69,57 @@ const TopSongs = () => {
   
 
   return (
-    <div className="flex flex-row gap-12 justify-around">
-        <div className=" ">
-          <h1 className="text-center text-2xl font-bold mt-5 text-textYellow italic">Your Top Tracks</h1>
-          <div className="mt-10 mb-10 ">
+    <div>
+      {
+        token 
+        ?
+        <div className="flex flex-row gap-12 justify-around">
+
+            <div className=" ">
+              <h1 className="text-center text-2xl font-bold mt-5 text-textYellow italic">Your Top Tracks</h1>
+              <div className="mt-10 mb-10 ">
+        
+                {topSongs.map((track) => ( 
+                  <div key={track.id} className="mb-5 bg-background rounded-full py-3 pr-5 hover:-translate-y-3">
+                    <div className="flex flex-row ml-5 ">
+                      <img className="w-[100px] h-[100px] border-4 border-textDark rounded-full" src={track.album.images[0].url} alt={track.name} />
+                      <span className="ml-5 mr-5">
+                        <p className=""><span className="font-bold text-textDark">{track.name}</span> </p>
+                        <span className="text-textLight">{track.artists[0].name}</span>
+                      </span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
     
-            {topSongs.map((track) => ( 
-              <div key={track.id} className="mb-5 bg-background rounded-full py-3 pr-5 hover:-translate-y-3">
-                <div className="flex flex-row ml-5 ">
-                  <img className="w-[100px] h-[100px] border-4 border-textDark rounded-full" src={track.album.images[0].url} alt={track.name} />
-                  <span className="ml-5 mr-5">
-                    <p className=""><span className="font-bold text-textDark">{track.name}</span> </p>
-                    <span className="text-textLight">{track.artists[0].name}</span>
-                  </span>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-
-
-        <div className="">
-          <h1 className="text-center text-2xl font-bold mt-5 text-textYellow italic">Top Artists</h1>
-                <div className="grid grid-cols-3 mt-10 mb-10 gap-5">
-            {topArtists.map((artist) => ( 
-              <div key={artist.id} className="bg-background rounded-full px-3 py-5 hover:-translate-y-3">
-                <div className="flex flex-col mb-5 items-center justify-around">
-                  <img className="w-[150px] h-[150px] border-4 border-textDark rounded-full" src={artist.images[0].url} alt={artist.name} />
-                  <span className="">
-                    <p className=""><span className="font-bold text-textDark">{artist.name}</span> </p>
-                  </span>
-                </div>
-              </div>
-            ))}
-          </div>
-
+    
+            <div className="">
+              <h1 className="text-center text-2xl font-bold mt-5 text-textYellow italic">Top Artists</h1>
+                    <div className="grid grid-cols-3 mt-10 mb-10 gap-5">
+                {topArtists.map((artist) => ( 
+                  <div key={artist.id} className="bg-background rounded-full px-3 py-5 hover:-translate-y-3">
+                    <div className="flex flex-col mb-5 items-center justify-around">
+                      <img className="w-[150px] h-[150px] border-4 border-textDark rounded-full" src={artist.images[0].url} alt={artist.name} />
+                      <span className="">
+                        <p className=""><span className="font-bold text-textDark">{artist.name}</span> </p>
+                      </span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+    
+            </div>
         </div>
+        : 
+        <div>
+          <p1>Connect Your Spotify Account to See Your Top Tracks and Artists</p1>
+        </div>
+
+      }
     </div>
+
+
       );
 };
 

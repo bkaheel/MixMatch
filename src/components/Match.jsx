@@ -4,6 +4,9 @@ import { collection, query, where, getDocs, setDoc, updateDoc, doc, getDoc } fro
 import { db } from '../Firebase';
 import SpotifyWebApi from 'spotify-web-api-js';
 import MatchView from './MatchView';
+import Zoom from 'react-reveal/Zoom';
+import Fade from 'react-reveal/Fade';
+import Roll from 'react-reveal/Roll';
 
 const Match = () => {
   const [friends, setFriends] = useState([]);
@@ -42,43 +45,57 @@ const Match = () => {
     }
   }, [username]);
 
-  // Fetch current user's friends list and check for match songs
-  useEffect(() => {
-    const fetchFriendsAndMatchSongs = async () => {
-      if (user && user.friends.length !== 0) {
-        const friends = user.friends.map((friend) => friend);
-        setFriends(friends);
 
-        const fetchMatchSongs = async (friendUid) => {
-          try {
-            const matchDocRef = doc(db, 'matches', username, 'friends', friendUid);
-            const matchDocSnapshot = await getDoc(matchDocRef);
-
-            if (matchDocSnapshot.exists()) {
-              const matchData = matchDocSnapshot.data();
-              setMatchSongs((prevMatchSongs) => ({
-                ...prevMatchSongs,
-                [friendUid]: matchData.songs || [],
-              }));
-            } else {
-              setMatchSongs((prevMatchSongs) => ({
-                ...prevMatchSongs,
-                [friendUid]: [],
-              }));
-            }
-          } catch (err) {
-            console.log(err);
+useEffect(() => {
+  const fetchFriendsAndMatchSongs = async () => {
+    if (user && user.friends.length !== 0) {
+      const friendss = user.friends.map(async (friend) => {
+        try {
+          const friendDocRef = doc(db, 'accounts', friend.uid);
+          const friendDocSnapshot = await getDoc(friendDocRef);
+  
+          if (friendDocSnapshot.exists()) {
+            const friendData = friendDocSnapshot.data();
+            return friendData;
           }
-        };
+        } catch (err) {
+          console.log(err);
+        }
+      });
 
-        friends.forEach((friend) => {
-          fetchMatchSongs(friend.uid);
-        });
-      }
-    };
+      const fetchedFriends = await Promise.all(friendss);
+      setFriends(fetchedFriends);
 
-    fetchFriendsAndMatchSongs();
-  }, [user, username]);
+      const fetchMatchSongs = async (friendUid) => {
+        try {
+          const matchDocRef = doc(db, 'matches', username, 'friends', friendUid);
+          const matchDocSnapshot = await getDoc(matchDocRef);
+
+          if (matchDocSnapshot.exists()) {
+            const matchData = matchDocSnapshot.data();
+            setMatchSongs((prevMatchSongs) => ({
+              ...prevMatchSongs,
+              [friendUid]: matchData.songs || [],
+            }));
+          } else {
+            setMatchSongs((prevMatchSongs) => ({
+              ...prevMatchSongs,
+              [friendUid]: [],
+            }));
+          }
+        } catch (err) {
+          console.log(err);
+        }
+      };
+
+      fetchedFriends.forEach((friend) => {
+        fetchMatchSongs(friend.uid);
+      });
+    }
+  };
+
+  fetchFriendsAndMatchSongs();
+}, [user, username]);
 
   const createMatch = async (friend) => {
     try {
@@ -86,26 +103,22 @@ const Match = () => {
       const matchDocRef = doc(db, 'matches', username, 'friends', friend.uid);
       const matchDocSnapshot = await getDoc(matchDocRef);
       const spotifyUser = new SpotifyWebApi();
-      spotifyUser.setAccessToken(user.spotifyToken);
       const spotifyFriend = new SpotifyWebApi();
-      spotifyFriend.setAccessToken(friend.spotifyToken);
+
 
       // Get songs from match
-          console.log(friend.spotifyToken);
-      console.log(user.spotifyToken);
       const friendAccessToken = friend.spotifyToken;
       const userAccessToken = user.spotifyToken;
 
 
       const getFriendTracks = async () => {
-        await spotifyFriend.setAccessToken(friendAccessToken);
+        spotifyFriend.setAccessToken(friend.spotifyToken);
         const friendTracks = await spotifyFriend.getMyRecentlyPlayedTracks({ limit: 2 });
-        console.log(friendTracks);
         return friendTracks.items.map((track) => track.track.id);
       };
 
       const getUserTracks = async () => {
-        await spotifyUser.setAccessToken(userAccessToken);
+        spotifyUser.setAccessToken(user.spotifyToken);
         const userTracks = await spotifyUser.getMyRecentlyPlayedTracks({ limit: 2 });
         return userTracks.items.map((track) => track.track.id);
       };
@@ -115,14 +128,12 @@ const Match = () => {
 
       const combinedTrackIDs = [...friendTrackIDs, ...userTrackIDs];
 
-      console.log(combinedTrackIDs);
       setArray(combinedTrackIDs);
 
       const recommendations = await spotifyApi.getRecommendations({
         seed_tracks: combinedTrackIDs,
       });
 
-      console.log(recommendations.tracks);
       const tracs = recommendations.tracks;
       const trackInfo = tracs.map((track) => ({
         name: track.name,
@@ -164,26 +175,38 @@ const Match = () => {
   };
 
   return (
-    <div>
-      <div className='bg-slate-200 rounded-lg w-[500px] h-screen'>
-        <h3 className='font-thin pb-10'>Your Friends</h3>
-        <ul className=''>
+    <div className=' flex  text-center justify-center mx-52 my-5 rounded-2xl'>
+      <div className=' w-2/5 rounded-lg h-screen'>
+      <Fade top delay="150">
+      <h3 className=' text-2xl text-white font-thin text-center mt-8 mb-14 border-2 rounded-lg py-4 '><span className='text-yellow-600 font-normal'>Match </span> with you Friends</h3></Fade> 
+      <Fade cascade delay="500">
+        <ul className='text-hoverColor space-y-9 '>
           {friends.map((friend, index) => (
-            <li className='outline outline-5 rounded-lg mb-5' key={index}>
-              <span>{friend.displayName}</span>
+            
+            <li className='outline rounded-lg pt-5 ' key={index}>
+              <Fade top cascade delay="1500">
+              <span className='text-hoverColor text-xl'>{friend.displayName}</span>
 
-              <h1>@{friend.userName}</h1>
-              <button onClick={() => createMatch(friend)}><span className='text-sm text-slate-600 underline'>Get New Matches</span></button>
+              <h1 className='mb-2 text-white font-light'>@{friend.userName}</h1>
+
+              <img className='w-[50px] h-[50px]' src={friend.photoURL} />
+              </Fade>
               {matchSongs[friend.uid] && (
-                <ul>
+                //<Roll left cascade delay="700">
+                <ul className='py-2'>
                   <li>
-                    <button className='mb-2 ml-2 mt-2 px-2 outline outline-2 w-[auto] h-[30px] text-center rounded-full hover:bg-yellow-600 hover:-translate-y-2' onClick={() => openMatchView(matchSongs[friend.uid])}>View Song Recs</button>
+                  <button className=' hover:bg-yellow-50 hover:border-yellow-500 hover:text-yellow-500 mb-1 ml-2 mt-2 px-3 py-2 outline outline-2 w-[auto]  text-center rounded-full bg-yellow-500 text-white hover:-translate-y-3 transition-all duration-700' onClick={() => openMatchView(matchSongs[friend.uid])}>View Song Recs</button>
                   </li>
-                </ul>
+                </ul>//</Roll>
               )}
+              <button className='mb-4 hover:scale-125 hover:font-light   transition-all font-thin' onClick={() => createMatch(friend)}><span className='text-sm text-white underline'>Get New Matches</span></button>
+              
             </li>
+            
           ))}
+          
         </ul>
+        </Fade>
       </div>
       <div className='p-5'>
           {isMatchViewOpen && <MatchView matches={selectedMatches} onClose={closeMatchView} />}

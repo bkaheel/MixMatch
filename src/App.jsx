@@ -12,6 +12,7 @@ import Settings from './components/Settings';
 import Friends from './components/Friends';
 import Feed from './components/app/Feed';
 import Match from './components/Match';
+import RegisterSpotify from './components/RegisterSpotify'
 
 function App() {
   // To prevent problems later on, users that are logged in should not be able to access the Login or register pages
@@ -48,6 +49,7 @@ function App() {
           <Route index element={<LandingPage />} />
           <Route path="login" element={<AltProtectedRoute><Login /></AltProtectedRoute>} />
           <Route path="register" element={<Register />} />
+          <Route path="spotifyregister" element={<ProfileProtectedRoute> <RegisterSpotify /> </ProfileProtectedRoute>}/>
           <Route path="app" element={<ProtectedRoute><MixMatch /></ProtectedRoute>} >
             <Route index element={<ProtectedRoute><Feed /></ProtectedRoute>} />  
             <Route path="friends" element={<ProtectedRoute><Friends /></ProtectedRoute>} />  

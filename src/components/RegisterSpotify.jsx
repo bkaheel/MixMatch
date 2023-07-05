@@ -9,9 +9,6 @@ const RegisterSpotify = () => {
     <div>
       <div>
         <div>
-          {
-            // Going to Spotify
-          }
           <a href={AUTH_URL}> Connect </a>
         </div>
       </div>

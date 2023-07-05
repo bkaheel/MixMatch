@@ -3,6 +3,8 @@ import { AuthenticationContext } from '../../context/AuthenticationContext';
 import { collection, query, where, getDocs } from 'firebase/firestore';
 import { db } from '../../Firebase';
 import SpotifyWebApi from 'spotify-web-api-js';
+import Fade from 'react-reveal/Fade';
+
 
 const Feed = () => {
   const [userTracks, setUserTracks] = useState([]);
@@ -131,23 +133,36 @@ const Feed = () => {
   };
 
   return (
-    <div className='gap-8'>
-      <h1 className='font-thin'> See What Your Friends Are Listening To</h1>
-      <ul>
-        {sortedTracks.map((track) => (
-          <li key={track.played_at}>
-            <div>
-              {track.artwork && (
-                <img className='w-150px h-[150px]' src={track.artwork} alt='Album Artwork' />
-              )}
-              <span>{track.track.name}</span> - <span>{track.track.artists[0].name}</span>
-            </div>
-            <div>Listened by: {track.userUid === currentUser.uid ? 'You' : track.userDisplayName}</div>
-            <div>{getTimeDifference(track.played_at)}</div>
-          </li>
-        ))}
-      </ul>
-    </div>
+    <div className=' gap-8'>
+      <div className='flex justify-center'>
+        <h1 className=' mt-8 px-2 py-3 border-2 rounded-3xl -mb-16 border-white font-thin text-center text-white '>See What Your Friends Are Listening To</h1>
+      </div>
+        <ul className=' flex flex-col items-center justify-center text-center hover:font-bold'>
+          {sortedTracks.map((track) => (
+                <li className='' key={track.played_at}>
+                  
+                <div className='flex flex-col h-screen justify-center hover:font-bold'>
+                <Fade right cascade>
+                <div className='hover:-translate-y-9 transition-all'>
+                  {track.artwork && (
+                  <img className='w-[450px] h-[450px] border-transparent rounded-2xl hover:shadow-2xl hover:shadow-black transition-all' src={track.artwork} alt='Album Artwork' />
+                )}
+                </div>
+                </Fade>
+                <Fade left cascade>
+                <div className=' hover:font-bold hover:translate-y-3 font-thin transition-all '><div className=' text-2xl text-yellow-600'>{track.track.name} </div> <div className='text-lg text-yellow-600'> - </div> <div className='text-2xl  text-yellow-600 mb-5'>{track.track.artists[0].name}</div></div>
+                <div className='text-sm font-thin hover:font-semibold hover:translate-y-2 transition-all text-yellow-600'>
+                  <div className=' '>Listened by: {track.userUid === currentUser.uid ? 'You' : track.userDisplayName}</div>
+                  <div className=' '>{getTimeDifference(track.played_at)}</div>
+                </div>
+                </Fade>
+              </div>
+              
+              
+              </li>
+          ))}
+        </ul>
+      </div>
   );
 };
 

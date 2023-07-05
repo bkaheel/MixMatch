@@ -26,21 +26,36 @@ const Login = () => {
     }
 
 
-  return (
-    <div className="bg-slate-500 flex flex-col h-screen">
-        <div>
-            <h1> Login </h1>
+    return (
+        <div className="bg-gradient-to-br from-textDark to-secondaryBackground via-yellow-600 from-3% via-20% to-60%">
+        <div className=" h-screen flex flex-col justify-center">
+            <div className="text-center">
+                <h1 className=' text-white mb-5 text-3xl font-light'> Login to see what your friends are up to </h1>
+            </div>
+            <div className="  text-center">
+                <form className='justify-center' onSubmit={handleSubmit}>
+                    <div className="">
+                        <p className=' text-white mb-2 font-thin'>Email</p>
+                    </div>
+                    <div>
+                    <input className='border-2 rounded-md border-yellow-500 focus:outline-none focus:border-yellow-500 focus:ring-4 focus:ring-yellow-500 invalid:border-red-500 invalid:border-2' type='email' placeholder='Email' />
+                    </div>
+                    <div className="mt-7">
+                        <p className=' text-white mb-2 font-thin'>Password</p>
+                    </div>
+                    <div>
+                        <input className='border rounded-md border-yellow-500 focus:outline-none focus:border-yellow-500 focus:ring-2 focus:ring-yellow-500 invalid:border-red-500 invalid:border-2' type='password' placeholder='Password' />
+                    </div>
+                    <button className=' hover:scale-110 hover:bg-white hover:text-yellow-500 hover:border-yellow-500 transition-all bg-yellow-600 px-7 py-2 border-2 rounded-full mt-9 text-white' type='submit'> Submit </button>
+                </form>
+            </div>
+            <div className="mt-8 justify-center flex flex-row">
+                <p className='text-white mb-2 font-normal'>Don't have an account? &nbsp; <span><a className="text-yellow-600 font-bold hover:text-blue-400 " href="/register">Create an Account </a> </span></p>
+            </div>
+            
         </div>
-        <div>
-            <form onSubmit={handleSubmit}>
-                <input type='email' placeholder='Email' />
-                <input type='password' placeholder='Password' />
-                <button type='submit'> Submit </button>
-            </form>
         </div>
-        <p>Don't have an account? <span> <a className="text-yellow-500 font-bold hover:text-blue-600" href="/register">Create an Account </a> </span></p>
-    </div>
-  )
+      )
 }
 
 export default Login

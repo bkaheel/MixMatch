@@ -23,7 +23,7 @@ export const AuthenticationContextProvider = ({ children }) => {
   const [refreshToken, setRefreshToken] = useState();
   const [accessToken, setAccessToken] = useState();
   const [isInitialLoad, setIsInitialLoad] = useState(true); // Flag to track initial load
-  const [prevUser, setPrevUser] = useState();
+  const [expiresIn, setExpiresIn] = useState();
 
   const refresh = async (refreshToken, uid) => {
 
@@ -32,22 +32,17 @@ export const AuthenticationContextProvider = ({ children }) => {
           refreshToken: refreshToken,
         })
         .then(async (res) => {
-          console.log(res);
-
           await updateDoc(doc(db, "accounts", uid), {
             spotifyToken: res.data.accessToken,
           });
         })
         .catch((err) => {
           console.log(err);
-          console.log(accessToken);
         });
-
-
-    
   }
 
   useEffect(() => {
+
     const unsub = onAuthStateChanged(auth, (user) => {
       if (user !== currentUser) {
         setIsInitialLoad(true);
@@ -55,6 +50,7 @@ export const AuthenticationContextProvider = ({ children }) => {
         setIsInitialLoad(false);
       }
       setCurrentUser(user);
+      setExpiresIn(3100);
     });
 
     return () => {
@@ -77,7 +73,6 @@ export const AuthenticationContextProvider = ({ children }) => {
           const querySnapshot = await getDocs(q);
           querySnapshot.forEach((doc) => {
             setUser(doc.data());
-            console.log(doc.data());
           });
         } catch (err) {
           setErr(true);
@@ -89,11 +84,8 @@ export const AuthenticationContextProvider = ({ children }) => {
   }, [uid]);
 
   useEffect( () => {
-    console.log("outside logic");
-
     const logic = async () => {
 
-      console.log("inside logic");
       refresh(user.refreshToken, user.uid);
 
       // for friends 
@@ -105,10 +97,6 @@ export const AuthenticationContextProvider = ({ children }) => {
         const friends = [];
         const hold = user.friends;
         const arr = hold.map((friend) => friend.uid);
-        console.log("arr");
-        console.log(arr);
-
-  
         querySnapshot.forEach((doc) => {
           const friend = doc.data();
           if (arr.includes(friend.uid)) {
@@ -124,22 +112,58 @@ export const AuthenticationContextProvider = ({ children }) => {
 
   }
 
-        let intervalId = null;
-
         if (user && isInitialLoad) {
-          console.log("inside if logic");
           logic();
-          intervalId = setInterval(logic, 60 * 60 * 1000); // Run logic every hour
         }
 
-        return () => {
-          if (intervalId) {
-            clearInterval(intervalId); // Clean up the interval on component unmount
-          }
-        };
-
+  
 
   }, [user, isInitialLoad]);
+
+  useEffect(() => {
+
+    const logic = async () => {
+
+      refresh(user.refreshToken, user.uid);
+
+      // for friends 
+
+      const q = query(collection(db, 'accounts'), where('uid', '!=', user.uid));
+    
+      try {
+        const querySnapshot = await getDocs(q);
+        const friends = [];
+        const hold = user.friends;
+        const arr = hold.map((friend) => friend.uid);
+
+
+  
+        querySnapshot.forEach((doc) => {
+          const friend = doc.data();
+          if (arr.includes(friend.uid)) {
+            refresh(friend.refreshToken, friend.uid);
+          }
+        });
+
+
+      } catch (err) {
+        console.log(err);
+      }
+
+      setExpiresIn(3100);
+      window.location.reload();
+    }
+
+    if (user) { 
+    const interval = setInterval(() => { 
+      logic();
+
+     }, (expiresIn - 60) * 1000)
+
+    return () => clearInterval(interval)
+  }
+  }, [user, expiresIn])
+  
 
   return (
     <AuthenticationContext.Provider value={{ currentUser }}>
