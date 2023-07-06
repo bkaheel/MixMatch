@@ -5,9 +5,8 @@ import {
   updateDoc,
   doc,
 } from "firebase/firestore";
-import { db } from "../firebase";
+import { db } from "../Firebase";
 import { AuthenticationContext } from '../context/AuthenticationContext';
-import { async } from '@firebase/util';
 
 
 
