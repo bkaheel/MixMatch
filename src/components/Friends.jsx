@@ -8,7 +8,7 @@ import {
   doc,
   arrayUnion,
 } from "firebase/firestore";
-import { db } from "../firebase";
+import { db } from "../Firebase";
 import { AuthenticationContext } from "../context/AuthenticationContext";
 import { useCollectionData } from 'react-firebase-hooks/firestore';
 import profile from '../assets/images/profile.png'
