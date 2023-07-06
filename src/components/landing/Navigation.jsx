@@ -26,9 +26,7 @@ const Navigation = () => {
                 <h1 className='text-2xl'><span className='text-yellow-600'>Mix</span><span className='font-thin'>Match</span></h1>
 
                 <ul className='flex gap-7 '>
-                    <li className='hover:text-yellow-600'> <a>Home</a></li>
-                    <li className='hover:text-yellow-600'><a>Features</a></li>
-                    <li className='hover:text-yellow-600'><a>Join</a></li>
+
                 </ul>
             </div>
 

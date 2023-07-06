@@ -22,7 +22,6 @@ const LandingPage = () => {
     <div className='flex flex-col'>
         <Navigation/>
         <Hero />
-        <Features />
 
 
     </div>
