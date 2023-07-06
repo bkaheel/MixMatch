@@ -2,7 +2,7 @@
 // [Future Update] change spotify auth
 
 import React from 'react'
-import { auth } from "../firebase"
+import { auth } from "../Firebase"
 import { signOut } from 'firebase/auth'
 import SpotifyLogin from './SpotifyLogin'
 
