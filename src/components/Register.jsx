@@ -46,21 +46,26 @@ const Register = () => {
   };
 
   return (
-    <div>
+    <div className="bg-gradient-to-br from-textDark to-secondaryBackground via-yellow-600 from-3% via-20% to-60% h-screen">
       <div>
         <h1>Sign Up</h1>
       </div>
-      <div>
+      <div className='flex flex-col'>
         <form onSubmit={handleSubmit}>
           <input type="text" placeholder="Display Name" />
           <input type="text" placeholder="User Name" />
           <input type="email" placeholder="Email" />
           <input type="password" placeholder="Password" />
-          <input type="file" id="file" />
+          <p> Select profile photo: </p>
+          <input type="file" id="file"/>
           <button type="submit">Submit</button>
         </form>
       </div>
     </div>
+
+
+
+    
   );
 };
 
