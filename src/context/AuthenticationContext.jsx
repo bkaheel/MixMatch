@@ -9,7 +9,7 @@ import {
   updateDoc,
   doc
 } from "firebase/firestore";
-import { db } from "../firebase";
+import { db } from "../Firebase";
 import axios from "axios";
 
 
