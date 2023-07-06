@@ -3,7 +3,6 @@ import { AuthenticationContext } from '../../context/AuthenticationContext';
 import { collection, query, where, getDocs } from 'firebase/firestore';
 import { db } from '../../Firebase';
 import SpotifyWebApi from 'spotify-web-api-js';
-import Fade from 'react-reveal/Fade';
 import profile from '../../assets/images/profile.png'
 
 
@@ -144,14 +143,12 @@ const Feed = () => {
                 <li className='' key={track.played_at}>
                   
                 <div className='flex flex-col h-screen justify-center '>
-                <Fade right cascade>
                 <div className=''>
                   {track.artwork && (
                   <img className='w-[450px] h-[450px] border-transparent rounded-2xl hover:shadow-2xl hover:shadow-black transition-all' src={track.artwork} alt='Album Artwork' />
                 )}
                 </div>
-                </Fade>
-                <Fade left cascade>
+
                 <div className=' hover:font-bold hover:translate-y-3 transition-all mt-5'>
                   <div className=' text-3xl text-textLight'>{track.track.name} </div> 
                   <div className='text-xl  text-textYellow mb-5'>{track.track.artists[0].name}</div>
@@ -164,7 +161,6 @@ const Feed = () => {
                   </div>
                 </div>
 
-                </Fade>
               </div>
               
               

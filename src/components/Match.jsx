@@ -4,7 +4,6 @@ import { collection, query, where, getDocs, setDoc, updateDoc, doc, getDoc } fro
 import { db } from '../Firebase';
 import SpotifyWebApi from 'spotify-web-api-js';
 import MatchView from './MatchView';
-import Fade from 'react-reveal/Fade';
 import profile from '../assets/images/profile.png'
 
 const Match = () => {
@@ -176,20 +175,16 @@ useEffect(() => {
   return (
     <div className=' flex items-center text-center justify-center mx-52 my-5 rounded-2xl'>
       <div className=' w-2/5 rounded-lg h-screen'>
-      <Fade top delay="150">
-      <h3 className=' text-2xl text-white font-thin text-center mt-8 mb-14 border-2 border-textLight rounded-full py-4 '><span className='text-textYellow font-normal'>Match </span> with you Friends</h3></Fade> 
-      <Fade cascade delay="500">
+      <h3 className=' text-2xl text-white font-thin text-center mt-8 mb-14 border-2 border-textLight rounded-full py-4 '><span className='text-textYellow font-normal'>Match </span> with you Friends</h3>
         <ul className='text-hoverColor space-y-9 '>
           {friends.map((friend, index) => (
             
             <li className=' pt-5 ' key={index}>
-              <Fade top cascade delay="1500">
               <span className='text-hoverColor text-xl'>{friend.displayName}</span>
 
               <h1 className='mb-2 text-white font-light'>@{friend.userName}</h1>
 
               <div className='justify-center flex'><img className='w-[100px] h-[100px] rounded-lg' src={friend.photoURL || profile} /></div>
-              </Fade>
               {matchSongs[friend.uid] && (
                 //<Roll left cascade delay="700">
                 <ul className='py-2'>
@@ -205,7 +200,6 @@ useEffect(() => {
           ))}
           
         </ul>
-        </Fade>
       </div>
       <div className='p-5'>
           {isMatchViewOpen && <MatchView matches={selectedMatches} onClose={closeMatchView} />}

@@ -1,5 +1,4 @@
 import React from 'react';
-import { Fade } from 'react-reveal';
 
 
 const MatchView = ({ matches, onClose }) => {
@@ -18,12 +17,12 @@ const MatchView = ({ matches, onClose }) => {
           <div >
             <ul >
             {matches.map((match, index) => (
-              <Fade top cascade distance="50%"><li className='flex mb-7' key={index} >
+    <li className='flex mb-7' key={index} >
                 {match.artwork && (
                   <img className=" ml-8 w-1/4  rounded-full" src={match.artwork} alt="Album Artwork" />
                 )}
                 <span className='ml-3 flex flex-col text justify-center'>{match.name}</span>
-              </li></Fade>
+              </li>
             ))}
             </ul>
           </div>
