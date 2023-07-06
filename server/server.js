@@ -2,6 +2,9 @@ import express from 'express';
 import SpotifyWebApi from 'spotify-web-api-node';
 import cors from 'cors';
 import bodyParser from 'body-parser';
+import { db } from '../src/Firebase.js';
+import { collection, query, where, getDocs, updateDoc, doc } from "firebase/firestore";
+
 
 
 const app = express();
@@ -103,21 +106,44 @@ app.post("/login", (req, res) => {
     })
 })
 
+const refreshUserTokens = async () => {
+  // Loops through users in database and refreshes all access tokens
 
+  const usersRef = query(collection(db, "accounts"));
+  const snapshot = await getDocs(usersRef);
+
+  snapshot.forEach(async (u) => {
+    const user = u.data();
+    const refreshToken = user.refreshToken;
+    console.log(refreshToken);
+    const spotifyApi = new SpotifyWebApi({
+        redirectUri: "http://localhost:5173/callback",
+        clientId: "31a74c4a34d245d8bcc83e7bed21b650",
+        clientSecret: "9d292ba379844b4a8dc69ccfa60996aa",
+        refreshToken,
+    })
+
+    try {
+      if(refreshToken) {
+        spotifyApi
+          .refreshAccessToken()
+          .then(data => {
+            updateDoc(doc(db, "accounts", user.uid), {
+              spotifyToken: data.body.access_token,
+            });
+          })
+          .catch(err => {
+            console.log(err)
+        })
+      }
+
+    } catch (err) {
+      console.log(err);
+    }
+  });
+};
+
+setInterval(refreshUserTokens, 60 * 45 * 1000); 
 
 
 app.listen(5174);
-
-
-// const runRefresh = async () => {
-  // try {
-    // await refresh();
-    // runRefresh(); // Call the function again for continuous execution
-  // } catch (error) {
-   //  console.log('An error occurred:', error);
-    // Handle the error or stop the continuous execution as needed
- // }
-// };
-
-// Start the continuous execution
-// runRefresh();

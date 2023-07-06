@@ -19,12 +19,14 @@ export default {
   
         },
         colors: {
-          background: "#FAF0CA",
-          secondaryBackground: "#6b705c",
-          textYellow: "#F4D35E", 
-          textLight: "#EE964B", 
-          textDark: "#F95738",
-          hoverColor: "#F5CB5C",
+          background: "#111111",
+          backgroundGra: "#232323",
+          secondaryBackground: "#343434",
+          secondaryGra: "#464646",
+          textYellow: "#EE6C4D", 
+          textLight: "#98C1D9", 
+          textDark: "#3D5A80",
+          hoverColor: "#E0FBFC",
         }
       },
     },

@@ -11,7 +11,6 @@ import {
 } from "firebase/firestore";
 import { db } from "../firebase";
 import axios from "axios";
-import SpotifyWebApi from "spotify-web-api-js";
 
 
 export const AuthenticationContext = createContext();

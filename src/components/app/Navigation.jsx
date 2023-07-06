@@ -7,6 +7,8 @@ import {FaUserFriends} from 'react-icons/fa'
 import {BsFillFilePersonFill} from 'react-icons/bs'
 import {BsLink45Deg} from 'react-icons/bs'
 import {IoIosSettings} from 'react-icons/io'
+import { motion } from 'framer-motion'
+
 
 const Navigation = () => {
     const navigate = useNavigate();
@@ -114,35 +116,35 @@ const Navigation = () => {
 
   return (
     <div className='flex flex-col'>   
-        <div className='flex flex-col ml-5 mt-16 font-bold gap-10'>
+        <div className='flex flex-col ml-4 mt-16 font-bold gap-10'>
 
         <a 
         className={`${feed
-          ? 'flex items-center justify-center bg-textDark rounded-full w-[50px] h-[50px] text-white cursor-pointer'
-          : 'flex items-center justify-center rounded-full w-[50px] h-[50px] hover:text-hoverColor cursor-pointer' }`}
+          ? 'flex items-center justify-center bg-textLight rounded-full w-[50px] h-[50px] text-white cursor-pointer'
+          : 'flex items-center justify-center rounded-full w-[50px] h-[50px] text-white hover:text-hoverColor cursor-pointer' }`}
         onClick={() => handleFeed()}> <CgFeed className='text-3xl text-center'/> </a> 
         <a
         className={`${friends
-          ? 'flex items-center justify-center bg-textDark rounded-full w-[50px] h-[50px] text-white cursor-pointer'
-          : 'flex items-center justify-center rounded-full w-[50px] h-[50px] hover:text-hoverColor cursor-pointer' }`} 
+          ? 'flex items-center justify-center bg-textLight rounded-full w-[50px] h-[50px] text-white cursor-pointer'
+          : 'flex items-center justify-center rounded-full w-[50px] h-[50px] text-white hover:text-hoverColor cursor-pointer' }`} 
         onClick={() => handleFriends()}> <FaUserFriends className='text-3xl text-center'/> </a> 
         <a 
         className={`${profile
-          ? 'flex items-center justify-center bg-textDark rounded-full w-[50px] h-[50px] text-white cursor-pointer'
-          : 'flex items-center justify-center rounded-full w-[50px] h-[50px] hover:text-hoverColor cursor-pointer' }`}
+          ? 'flex items-center justify-center bg-textLight rounded-full w-[50px] h-[50px] text-white cursor-pointer'
+          : 'flex items-center justify-center rounded-full w-[50px] h-[50px] text-white hover:text-hoverColor cursor-pointer' }`}
         onClick={() => handleProfile()}> <BsFillFilePersonFill className='text-3xl text-center'/> </a>
         <a 
                 className={`${match
-                  ? 'flex items-center justify-center bg-textDark rounded-full w-[50px] h-[50px] text-white cursor-pointer'
-                  : 'flex items-center justify-center rounded-full w-[50px] h-[50px] hover:text-hoverColor cursor-pointer' }`}
+                  ? 'flex items-center justify-center bg-textLight rounded-full w-[50px] h-[50px] text-white cursor-pointer'
+                  : 'flex items-center justify-center rounded-full w-[50px] h-[50px]  text-white hover:text-hoverColor cursor-pointer' }`}
         
         onClick={() => handleMatch()}> <BsLink45Deg className='text-3xl text-center'/> </a> 
         </div>
-        <div className='flex ml-5 items-end mt-[300px] font-bold'>
+        <div className='flex ml-4 items-end mt-[300px] font-bold'>
         <a
                 className={`${settings
-                  ? 'flex items-center justify-center bg-textDark rounded-full w-[50px] h-[50px] text-white cursor-pointer'
-                  : 'flex items-center justify-center rounded-full w-[50px] h-[50px] hover:text-hoverColor cursor-pointer' }`}
+                  ? 'flex items-center justify-center bg-textLight rounded-full w-[50px] h-[50px] text-white cursor-pointer'
+                  : 'flex items-center justify-center rounded-full w-[50px] h-[50px]  text-white hover:text-hoverColor cursor-pointer' }`}
         
         onClick={() => handleSettings()}> <IoIosSettings className='text-3xl text-center'/> </a>
         </div>

@@ -4,9 +4,8 @@ import { collection, query, where, getDocs, setDoc, updateDoc, doc, getDoc } fro
 import { db } from '../Firebase';
 import SpotifyWebApi from 'spotify-web-api-js';
 import MatchView from './MatchView';
-import Zoom from 'react-reveal/Zoom';
 import Fade from 'react-reveal/Fade';
-import Roll from 'react-reveal/Roll';
+import profile from '../assets/images/profile.png'
 
 const Match = () => {
   const [friends, setFriends] = useState([]);
@@ -175,27 +174,27 @@ useEffect(() => {
   };
 
   return (
-    <div className=' flex  text-center justify-center mx-52 my-5 rounded-2xl'>
+    <div className=' flex items-center text-center justify-center mx-52 my-5 rounded-2xl'>
       <div className=' w-2/5 rounded-lg h-screen'>
       <Fade top delay="150">
-      <h3 className=' text-2xl text-white font-thin text-center mt-8 mb-14 border-2 rounded-lg py-4 '><span className='text-yellow-600 font-normal'>Match </span> with you Friends</h3></Fade> 
+      <h3 className=' text-2xl text-white font-thin text-center mt-8 mb-14 border-2 border-textLight rounded-full py-4 '><span className='text-textYellow font-normal'>Match </span> with you Friends</h3></Fade> 
       <Fade cascade delay="500">
         <ul className='text-hoverColor space-y-9 '>
           {friends.map((friend, index) => (
             
-            <li className='outline rounded-lg pt-5 ' key={index}>
+            <li className=' pt-5 ' key={index}>
               <Fade top cascade delay="1500">
               <span className='text-hoverColor text-xl'>{friend.displayName}</span>
 
               <h1 className='mb-2 text-white font-light'>@{friend.userName}</h1>
 
-              <img className='w-[50px] h-[50px]' src={friend.photoURL} />
+              <div className='justify-center flex'><img className='w-[100px] h-[100px] rounded-lg' src={friend.photoURL || profile} /></div>
               </Fade>
               {matchSongs[friend.uid] && (
                 //<Roll left cascade delay="700">
                 <ul className='py-2'>
                   <li>
-                  <button className=' hover:bg-yellow-50 hover:border-yellow-500 hover:text-yellow-500 mb-1 ml-2 mt-2 px-3 py-2 outline outline-2 w-[auto]  text-center rounded-full bg-yellow-500 text-white hover:-translate-y-3 transition-all duration-700' onClick={() => openMatchView(matchSongs[friend.uid])}>View Song Recs</button>
+                  <button className=' hover:border-hoverColor hover:text-textDark mb-1 ml-2 mt-2 px-3 py-2 outline outline-2 w-[auto]  text-center rounded-full bg-textYellow text-white hover:-translate-y-3 transition-all duration-700' onClick={() => openMatchView(matchSongs[friend.uid])}>View Song Recs</button>
                   </li>
                 </ul>//</Roll>
               )}

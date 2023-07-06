@@ -4,6 +4,7 @@ import { collection, query, where, getDocs } from 'firebase/firestore';
 import { db } from '../../Firebase';
 import SpotifyWebApi from 'spotify-web-api-js';
 import Fade from 'react-reveal/Fade';
+import profile from '../../assets/images/profile.png'
 
 
 const Feed = () => {
@@ -44,6 +45,7 @@ const Feed = () => {
             ...track,
             userUid: currentUser.uid,
             userDisplayName: user.displayName,
+            profilePhoto: user.photoURL,
             artwork: track.track.album.images[0].url,
 
           }));
@@ -135,26 +137,33 @@ const Feed = () => {
   return (
     <div className=' gap-8'>
       <div className='flex justify-center'>
-        <h1 className=' mt-8 px-2 py-3 border-2 rounded-3xl -mb-16 border-white font-thin text-center text-white '>See What Your Friends Are Listening To</h1>
+        <h1 className=' mt-8 px-3 py-3 border-2 rounded-3xl -mb-16 border-textLight font-thin text-center text-sm text-white '>See What Your Friends Are Listening To</h1>
       </div>
-        <ul className=' flex flex-col items-center justify-center text-center hover:font-bold'>
+        <ul className=' flex flex-col items-center justify-center text-center '>
           {sortedTracks.map((track) => (
                 <li className='' key={track.played_at}>
                   
-                <div className='flex flex-col h-screen justify-center hover:font-bold'>
+                <div className='flex flex-col h-screen justify-center '>
                 <Fade right cascade>
-                <div className='hover:-translate-y-9 transition-all'>
+                <div className=''>
                   {track.artwork && (
                   <img className='w-[450px] h-[450px] border-transparent rounded-2xl hover:shadow-2xl hover:shadow-black transition-all' src={track.artwork} alt='Album Artwork' />
                 )}
                 </div>
                 </Fade>
                 <Fade left cascade>
-                <div className=' hover:font-bold hover:translate-y-3 font-thin transition-all '><div className=' text-2xl text-yellow-600'>{track.track.name} </div> <div className='text-lg text-yellow-600'> - </div> <div className='text-2xl  text-yellow-600 mb-5'>{track.track.artists[0].name}</div></div>
-                <div className='text-sm font-thin hover:font-semibold hover:translate-y-2 transition-all text-yellow-600'>
-                  <div className=' '>Listened by: {track.userUid === currentUser.uid ? 'You' : track.userDisplayName}</div>
-                  <div className=' '>{getTimeDifference(track.played_at)}</div>
+                <div className=' hover:font-bold hover:translate-y-3 transition-all mt-5'>
+                  <div className=' text-3xl text-textLight'>{track.track.name} </div> 
+                  <div className='text-xl  text-textYellow mb-5'>{track.track.artists[0].name}</div>
+                    <div className='text-sm font-thin text-yellow-600 '>
+                      <div className='flex flex-row items-center gap-4 justify-center '>
+                        <img className='w-[30px] h-[30px] rounded-full' src={track.profilePhoto || profile}/>
+                        <div className='text-lg text-textLight'>{track.userUid === currentUser.uid ? 'You' : track.userDisplayName}</div>
+                      </div>
+                      <div className='mt-3 text-textLight'>{getTimeDifference(track.played_at)}</div>
+                  </div>
                 </div>
+
                 </Fade>
               </div>
               

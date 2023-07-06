@@ -7,12 +7,12 @@ import Navigation from './app/Navigation';
 
 const MixMatch = () => {
   return (
-    <div className='flex h-screen bg-background'>
+    <div className='flex h-screen bg-gradient-to-t from-background from-60% via-backgroundGra via-100%'>
       <div className='fixed'>
         <Navigation />
       </div>
       <div className='ml-20 mr-3 w-full py-6'>
-        <div className='bg-secondaryBackground h-full overflow-auto rounded-3xl'>
+        <div className='bg-gradient-to-t from-secondaryBackground from-60% via-secondaryGra via-100% h-full overflow-auto rounded-3xl'>
           <Outlet />
         </div>
       </div>
