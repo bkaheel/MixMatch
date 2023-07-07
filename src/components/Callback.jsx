@@ -35,8 +35,8 @@ const Callback = () => {
           expiresIn: localStorage.getItem("Expiring")
         });
         setLoading(false);
-        window.location.href = 'https://mix-match.vercel.app/app';
-        } catch (error) {
+        navigate('/app');
+      } catch (error) {
         console.log(error);
       }
     })();
