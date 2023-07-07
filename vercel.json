@@ -1,0 +1,5 @@
+{
+    "rewrites":  [
+      {"source": "/app", "destination": "/https://mix-match-ksbg8vpm2-mkembe.vercel.app/app"}
+    ]
+  }
