@@ -2,7 +2,6 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import LandingPage from './components/LandingPage';
 import Register from './components/Register';
 import Login from './components/Login';
-import SpotifyLogin from './components/SpotifyLogin';
 import MixMatch from './components/MixMatch';
 import { AuthenticationContext } from './context/AuthenticationContext';
 import { useContext } from "react";
