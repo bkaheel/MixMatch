@@ -5,6 +5,7 @@ import { doc, setDoc } from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';
 import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
 
+// Register logic
 const Register = () => {
   const navigate = useNavigate();
 
