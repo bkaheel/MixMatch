@@ -89,7 +89,7 @@ app.post("/refresh", (req, res) => {
 app.post("/login", (req, res) => {
     const code = req.body.code
     const spotifyApi = new SpotifyWebApi({
-      redirectUri: "http://localhost:5173/callback",
+      redirectUri: "https://mix-match-zvzf.vercel.app/callback",
       clientId: "31a74c4a34d245d8bcc83e7bed21b650",
       clientSecret: "9d292ba379844b4a8dc69ccfa60996aa",
     })
