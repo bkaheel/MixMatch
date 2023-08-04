@@ -1,8 +1,6 @@
 {
-  "functions": {
-    "api/**/*.js" 
-  },
-  
+  "functions": "api/**/*.js",
+
   "rewrites": [
     {
       "source": "/(.*)",
