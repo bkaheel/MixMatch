@@ -1,8 +1,12 @@
 {
-  "functions": [
+  "functions": {
     "api/**/*.js" 
-  ],
-    "rewrites": [
-      { "source": "/(.*)", "destination": "/" }
-    ]
+  },
+  
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/"
+    }
+  ]
 }
