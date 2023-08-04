@@ -11,5 +11,12 @@
       "source": "/(.*)",
       "destination": "/"
     }
+  ],
+
+  "crons": [
+    {
+      "path": "/api/refresh",
+      "schedule": "0 * * * *"
+    }
   ]
 }
