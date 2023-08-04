@@ -19,7 +19,7 @@ export default async function handler(req, res) {
 
   }
 
-  setTimeout(handler, 3600000); // call again in 1 hour
+  setTimeout(handler, 5000); // call again in 1 hour
 
   return res.status(200).json({msg: 'Success'});
 
