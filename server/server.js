@@ -145,5 +145,3 @@ const refreshUserTokens = async () => {
 
 
 app.listen(5174);
-
-module.exports = app;
