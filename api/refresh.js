@@ -34,6 +34,7 @@ async function refreshAllTokens() {
 
     const user = userDoc.data();
     const refreshToken = user.refreshToken;
+    const accessToken = user.spotifyToken;
 
     const spotifyApi = new SpotifyWebApi({
         redirectUri: "https://mix-match-zvzf.vercel.app/callback",
