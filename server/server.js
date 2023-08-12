@@ -143,7 +143,7 @@ const refreshUserTokens = async () => {
   });
 };
 
-setInterval(refreshUserTokens, 60 * 45 * 1000); 
-
 
 app.listen(5174);
+
+module.exports = app;
