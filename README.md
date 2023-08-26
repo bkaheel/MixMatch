@@ -1,6 +1,6 @@
 # Mix-Match
 
-* Git was broken. Therefore, code was sent to [Millie Kembe](https://github.com/mkembe) to be pushed and committed to GitHub.
+Git was broken. Therefore, code was sent to [Millie Kembe](https://github.com/mkembe) to be pushed and committed to GitHub.
 
 ### Description
 This is a music-based social networking application that allows users to see what their friends are listening to and get song recommendations based on popular music within a user's network. 
