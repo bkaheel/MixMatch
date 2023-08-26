@@ -5,7 +5,7 @@ NOTE: During the development of the application, I was experiencing technical di
 ### Description
 This is a music-based social networking application that allows users to see what their friends are listening to and get song recommendations based on popular music within a user's network. 
 
-This webapp is currently being buily with ReactJS for the client-side development and Express for the server-side development. Data pertaining to user accounts and authentication is stored with Firebase.
+This webapp is currently being built with ReactJS for the client-side development and Express for the server-side development. Data pertaining to user accounts and authentication is stored with Firebase.
 
 The app utilizes the Spotify Web API and is primarily intended for use on desktop. 
 
