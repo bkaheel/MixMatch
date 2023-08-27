@@ -1,4 +1,4 @@
-# Mix-Match
+# MixMatch
 
 NOTE: During the development of the application, I was experiencing technical difficulties with Git and GitHub and was addressing the issue with GitHub. Therefore, design elements of the application were designed and developed by me and the code was sent to [Millie Kembe](https://github.com/mkembe) to be pushed and committed to GitHub. All functionality and integration is designed and developed by [Millie Kembe](https://github.com/mkembe).
 
