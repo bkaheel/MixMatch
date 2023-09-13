@@ -1,6 +1,6 @@
 # MixMatch
 
-NOTE: During the development of the application, I was experiencing technical difficulties with Git and GitHub and was addressing the issue with GitHub. Therefore, design elements of the application were designed and developed by me and the code was sent to [Millie Kembe](https://github.com/mkembe) to be pushed and committed to GitHub. All functionality and integration is designed and developed by [Millie Kembe](https://github.com/mkembe).
+NOTE: During the development of the application, I was experiencing technical difficulties with Git and GitHub and was addressing the issue with GitHub. Therefore, design elements of the application were designed and developed by [Benjamin Kaheel](https://github.com/bkaheel) and the code was sent to [Millie Kembe](https://github.com/mkembe) to be pushed and committed to GitHub. All functionality and integration is designed and developed by [Millie Kembe](https://github.com/mkembe).
 
 ### Description
 This is a music-based social networking application that allows users to see what their friends are listening to and get song recommendations based on popular music within a user's network. 
